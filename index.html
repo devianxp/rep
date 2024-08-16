@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buscar Cajeros</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <style>
+        /* Estilo base para la página */
+        body {
+            background-image: url('Chivo-Wallet.jpg');
+            background-size: cover;
+            font-family: Calibri, sans-serif;
+            color: rgb(92, 87, 87);
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Estilo para el div principal con transparencia */
+        #main-div {
+            background-color: rgba(255, 255, 255, 0.7); /* Cambia el valor alfa (0.7) para ajustar la transparencia */
+            padding: 20px;
+        }
+
+        /* Estilo para el encabezado y el formulario de búsqueda */
+        h1 {
+            color: darkblue;
+            text-align: center;
+        }
+
+        #search {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border: none;
+            border-bottom: 1px solid #ccc;
+        }
+
+        /* Consulta de medios para hacer la página responsive */
+        @media (max-width: 768px) {
+            body {
+                font-size: 14px;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+
+            #search {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="main-div">
+        <h1><b>Buscador de Cajeros Chivo</b></h1>
+        <input type="text" id="search" placeholder="Escribe el lugar...">
+        <div id="results"></div>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            $("#search").on("keyup", function() {
+                var query = $(this).val();
+                if (query !== "") {
+                    $.ajax({
+                        url: "search.php",
+                        method: "POST",
+                        data: { query: query },
+                        success: function(data) {
+                            $("#results").html(data);
+                        }
+                    });
+                } else {
+                    $("#results").html("");
+                }
+            });
+        });
+    </script>
+</body>
+</html>
